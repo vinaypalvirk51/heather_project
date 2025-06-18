@@ -1,4 +1,5 @@
-# Terraform-related files to ignore
+# Terraform
 .terraform/
 *.tfstate
 *.tfstate.*
+.terraform.lock.hcl
