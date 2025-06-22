@@ -1,11 +1,11 @@
 package com.instana.robotshop.shipping;
 
-import javax.persistence.Table;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Column;
+import javax.persistence.Table;
 
 /*
 * Bean for City
@@ -58,8 +58,8 @@ public class City {
         return this.region;
     }
 
-    public void setRegion(String code) {
-        this.region = region;
+    public void setRegion(String region) {
+        this.region = region; // ✅ Corrected
     }
 
     public double getLatitude() {
