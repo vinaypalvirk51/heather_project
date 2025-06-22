@@ -47,3 +47,13 @@ module "keyvault_rbac" {
   role_name            = var.role_name
   principal_object_id  = var.principal_object_id
 }
+
+module "azure_Acr" {
+  source              = "./modules/acr"
+  acr_name            = var.acr_name
+  resource_group_name = module.resourcegroup.resource_group_name
+  location            = module.resourcegroup.resource_group_location
+  sku                 = var.acr_sku
+  admin_enabled       = var.admin_enabled
+  tags                = var.tags
+}

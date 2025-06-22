@@ -16,3 +16,12 @@ tenant_id = "c6e6f015-52b2-47c3-b3d0-551d168fd33f"
 # Replace this with the actual object ID (e.g., from `az ad sp list`)
 principal_object_id = "fa37c7fd-f8b5-4238-9a57-33b050667c10"
 role_name = "Contributor"
+
+acr_name             = "myheatheracr13"
+acr_sku              = "Standard"
+admin_enabled        = true
+
+tags = {
+  environment = "development"
+  team        = "devops"
+}

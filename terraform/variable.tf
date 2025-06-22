@@ -67,3 +67,26 @@ variable "role_name" {
   description = "The name of the role to assign to the principal."
   default     = "Key Vault Secrets User"  # Optional default
 }
+
+variable "acr_name" {
+  description = "Globally unique ACR name"
+  type        = string
+}
+
+variable "acr_sku" {
+  description = "The SKU of the ACR (Basic, Standard, Premium)"
+  type        = string
+  default     = "Basic"
+}
+
+variable "admin_enabled" {
+  description = "Enable ACR admin user"
+  type        = bool
+  default     = false
+}
+
+variable "tags" {
+  description = "A map of tags"
+  type        = map(string)
+  default     = {}
+}
