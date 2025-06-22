@@ -37,6 +37,6 @@ variable "soft_delete_retention_days" {
 }
 
 variable "enable_rbac_authorization" {
-  type = bool
+  type    = bool
   default = true
 }

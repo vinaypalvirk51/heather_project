@@ -1,5 +1,5 @@
 output "subnet_name" {
-    value = azurerm_subnet.my_subnet.name
+  value = azurerm_subnet.my_subnet.name
 }
 
 output "subnet_id" {

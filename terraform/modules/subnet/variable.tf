@@ -1,11 +1,11 @@
-variable subnet_name {
-    type = string
+variable "subnet_name" {
+  type = string
 }
-variable rgname {
-    type = string
+variable "rgname" {
+  type = string
 }
-variable vnetname {
-    type = string
+variable "vnetname" {
+  type = string
 }
 
 variable "subnet_address_prefixes" {

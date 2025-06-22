@@ -33,18 +33,18 @@ variable "subnet_address_prefixes" {
 variable "purge_protection_enabled" {
   description = "Enable purge protection"
   type        = bool
-  
+
 }
 
 variable "soft_delete_retention_days" {
   description = "Soft delete retention in days"
   type        = number
-  
+
 }
 
 variable "enable_rbac_authorization" {
   type = bool
-  
+
 }
 
 variable "kv_name" {
@@ -65,7 +65,7 @@ variable "principal_object_id" {
 variable "role_name" {
   type        = string
   description = "The name of the role to assign to the principal."
-  default     = "Key Vault Secrets User"  # Optional default
+  default     = "Key Vault Secrets User" # Optional default
 }
 
 variable "acr_name" {

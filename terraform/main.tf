@@ -1,6 +1,6 @@
 module "resourcegroup" {
-  source = "./modules/resourcegroup"
-  resource_group_name = var.resource_group_name
+  source                  = "./modules/resourcegroup"
+  resource_group_name     = var.resource_group_name
   resource_group_location = var.resource_group_location
 }
 
@@ -14,11 +14,11 @@ module "resourcegroup" {
 
 
 module "virtualnetwork" {
-  source              = "./modules/virtualnetwork"
-  v_name              = var.vnet_name
-  v_location          = module.resourcegroup.resource_group_location
-  resourcegroup_name  = module.resourcegroup.resource_group_name
-  address_ip          = var.vnet_address_space
+  source             = "./modules/virtualnetwork"
+  v_name             = var.vnet_name
+  v_location         = module.resourcegroup.resource_group_location
+  resourcegroup_name = module.resourcegroup.resource_group_name
+  address_ip         = var.vnet_address_space
 }
 
 
@@ -31,21 +31,21 @@ module "subnet" {
 }
 
 module "keyvault" {
-  source                    = "./modules/azurekeyvault"
-  kv_name                   = var.kv_name
-  location                  = module.resourcegroup.resource_group_location
-  rg_name                   = module.resourcegroup.resource_group_name
-  tenant_id                 = var.tenant_id
-  sku_name                  = "standard"
-  purge_protection_enabled = var.purge_protection_enabled
+  source                     = "./modules/azurekeyvault"
+  kv_name                    = var.kv_name
+  location                   = module.resourcegroup.resource_group_location
+  rg_name                    = module.resourcegroup.resource_group_name
+  tenant_id                  = var.tenant_id
+  sku_name                   = "standard"
+  purge_protection_enabled   = var.purge_protection_enabled
   soft_delete_retention_days = var.soft_delete_retention_days
 }
 
 module "keyvault_rbac" {
-  source               = "./modules/rbac"
-  key_vault_id         = module.keyvault.key_vault_id
-  role_name            = var.role_name
-  principal_object_id  = var.principal_object_id
+  source              = "./modules/rbac"
+  key_vault_id        = module.keyvault.key_vault_id
+  role_name           = var.role_name
+  principal_object_id = var.principal_object_id
 }
 
 module "azure_Acr" {

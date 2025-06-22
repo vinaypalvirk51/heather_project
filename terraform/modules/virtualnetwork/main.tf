@@ -9,7 +9,7 @@ resource "azurerm_virtual_network" "my_vnet" {
   location            = var.v_location
   resource_group_name = var.resourcegroup_name
   address_space       = var.address_ip
-  
+
 
 
   tags = {
