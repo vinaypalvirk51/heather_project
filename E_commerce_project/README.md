@@ -128,3 +128,6 @@ $ curl http://<host>:8080/api/payment/metrics
 
 <!-- this is the command to get to know our root directory. Whatever is our root directory, our .github/workflows/pipeline.yaml file should be there -->
 git rev-parse --show-toplevel
+
+<!-- if we get error related to CRLF, then run below command -->
+git config --global core.autocrlf true   
