@@ -1,4 +1,4 @@
-name: CI/CD Multi-Service Pipeline
+name: Image push to ACR and Jforg - CI/CD Pipeline
 
 on:
   push:
