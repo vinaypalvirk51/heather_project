@@ -125,3 +125,6 @@ To test the metrics use:
 $ curl http://<host>:8080/api/cart/metrics
 $ curl http://<host>:8080/api/payment/metrics
 ```
+
+<!-- this is the command to get to know our root directory. Whatever is our root directory, our .github/workflows/pipeline.yaml file should be there -->
+git rev-parse --show-toplevel

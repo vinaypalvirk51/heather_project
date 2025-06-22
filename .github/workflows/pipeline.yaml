@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI/CD Multi-Service Pipeline
 
 on:
   push:
@@ -6,20 +6,48 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  ACR_REGISTRY: ${{ secrets.ACR_LOGIN_SERVER }}
+  JFROG_REGISTRY: ${{ secrets.JFROG_URL }}/${{ secrets.JFROG_REPO }}
+
 jobs:
-  build:
-    name: Build & Test
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Java 22
+    - name: Set up Java
       uses: actions/setup-java@v3
       with:
         java-version: '22'
         distribution: 'temurin'
 
-    - name: Build with Maven
-      run: mvn clean install --batch-mode --no-transfer-progress
+    - name: Log in to ACR
+      run: echo ${{ secrets.ACR_PASSWORD }} | docker login $ACR_REGISTRY -u ${{ secrets.ACR_USERNAME }} --password-stdin
+
+    - name: Log in to JFrog
+      run: echo ${{ secrets.JFROG_PASSWORD }} | docker login ${{ secrets.JFROG_URL }} -u ${{ secrets.JFROG_USERNAME }} --password-stdin
+
+    - name: Build & Push Docker Images
+      run: |
+        services=("shipping" "cart" "catalog" "dispatch" "payment" "ratings" "user")  # Add more if needed
+
+        for service in "${services[@]}"; do
+          echo "Building $service..."
+
+          # Build the JAR
+          mvn -f E_commerce_project/$service/pom.xml clean package -DskipTests
+
+          # Build Docker image
+          docker build -t $service:latest E_commerce_project/$service
+
+          # Push to ACR
+          docker tag $service:latest $ACR_REGISTRY/$service:latest
+          docker push $ACR_REGISTRY/$service:latest
+
+          # Push to JFrog
+          docker tag $service:latest $JFROG_REGISTRY/$service:latest
+          docker push $JFROG_REGISTRY/$service:latest
+        done
