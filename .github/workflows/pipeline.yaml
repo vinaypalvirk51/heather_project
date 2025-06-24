@@ -1,4 +1,4 @@
-name: Image push to ACR and Jforg - CI/CD Pipeline
+name: Image push to ACR and JFrog - CI/CD Pipeline
 
 on:
   push:
@@ -23,11 +23,18 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Set up Maven
+      uses: s4u/setup-maven-action@v1
+      with:
+        maven-version: '3.8.8'  # Or use the latest stable version
+
     - name: Log in to ACR
-      run: echo ${{ secrets.ACR_PASSWORD }} | docker login $ACR_REGISTRY -u ${{ secrets.ACR_USERNAME }} --password-stdin
+      run: echo "${{ secrets.ACR_PASSWORD }}" | docker login $ACR_REGISTRY -u ${{ secrets.ACR_USERNAME }} --password-stdin
 
     - name: Build & Push Docker Images
       run: |
+        set -e  # Exit on error
+
         services=("shipping" "cart" "catalog" "dispatch" "payment" "ratings" "user")  # Add more if needed
 
         for service in "${services[@]}"; do
@@ -43,4 +50,5 @@ jobs:
           docker tag $service:latest $ACR_REGISTRY/$service:latest
           docker push $ACR_REGISTRY/$service:latest
 
+          echo "$service image pushed to $ACR_REGISTRY"
         done
