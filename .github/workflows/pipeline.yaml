@@ -17,12 +17,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    #- name: Set up Java and Maven
-     # uses: actions/setup-java@v3
-      #with:
-       # java-version: '17'
-        #distribution: 'temurin'
-        #cache: 'maven'  # This sets up Maven and caches dependencies
+    - name: Set up Java 22 and Maven
+      uses: actions/setup-java@v3
+      with:
+        java-version: '22'          # MUST match what your pom.xml expects
+        distribution: 'temurin'
+        cache: 'maven'
 
     - name: Log in to ACR
       run: echo "${{ secrets.ACR_PASSWORD }}" | docker login $ACR_REGISTRY -u ${{ secrets.ACR_USERNAME }} --password-stdin
@@ -34,14 +34,17 @@ jobs:
         services=("shipping" "cart" "catalog" "dispatch" "payment" "ratings" "user")
 
         for service in "${services[@]}"; do
-          echo "Building $service..."
+          echo "🚀 Building $service..."
 
+          # Build Java JAR
           mvn -f E_commerce_project/$service/pom.xml clean package -DskipTests
 
+          # Build Docker image
           docker build -t $service:latest E_commerce_project/$service
 
+          # Push to ACR
           docker tag $service:latest $ACR_REGISTRY/$service:latest
           docker push $ACR_REGISTRY/$service:latest
 
-          echo "$service image pushed to $ACR_REGISTRY"
+          echo "✅ $service image pushed to $ACR_REGISTRY"
         done
