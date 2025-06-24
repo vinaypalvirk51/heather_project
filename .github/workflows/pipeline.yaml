@@ -8,7 +8,6 @@ on:
 
 env:
   ACR_REGISTRY: ${{ secrets.ACR_LOGIN_SERVER }}
-  JFROG_REGISTRY: ${{ secrets.JFROG_URL }}/${{ secrets.JFROG_REPO }}
 
 jobs:
   build-and-push:
@@ -27,9 +26,6 @@ jobs:
     - name: Log in to ACR
       run: echo ${{ secrets.ACR_PASSWORD }} | docker login $ACR_REGISTRY -u ${{ secrets.ACR_USERNAME }} --password-stdin
 
-    - name: Log in to JFrog
-      run: echo ${{ secrets.JFROG_PASSWORD }} | docker login ${{ secrets.JFROG_URL }} -u ${{ secrets.JFROG_USERNAME }} --password-stdin
-
     - name: Build & Push Docker Images
       run: |
         services=("shipping" "cart" "catalog" "dispatch" "payment" "ratings" "user")  # Add more if needed
@@ -47,7 +43,4 @@ jobs:
           docker tag $service:latest $ACR_REGISTRY/$service:latest
           docker push $ACR_REGISTRY/$service:latest
 
-          # Push to JFrog
-          docker tag $service:latest $JFROG_REGISTRY/$service:latest
-          docker push $JFROG_REGISTRY/$service:latest
         done
