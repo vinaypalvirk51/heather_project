@@ -1,10 +1,19 @@
-FROM golang:1.17
+FROM golang:1.22
 
-WORKDIR /go/src/app
+# Set the working directory inside the container
+WORKDIR /app
 
-COPY *.go .
+# Copy go.mod and go.sum first for better caching
+COPY go.mod go.sum ./
 
-RUN go mod init dispatch && go get
-RUN go install
+# Download dependencies
+RUN go mod download
 
-CMD dispatch
+# Copy the rest of the source code
+COPY . .
+
+# Build the Go app
+RUN go build -o dispatch .
+
+# Run the binary
+CMD ["./dispatch"]

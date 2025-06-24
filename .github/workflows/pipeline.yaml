@@ -31,7 +31,7 @@ jobs:
       run: |
         set -e
 
-        services=("cart" "catalog" "dispatch" "payment" "ratings" "user")
+        services=("cart" "catalog" "payment" "ratings" "user")
 
         for service in "${services[@]}"; do
           echo "🚀 Building $service..."
