@@ -1,4 +1,4 @@
-name: Image push to ACR and JFrog - CI/CD Pipeline
+name: Image push to ACR - CI/CD Pipeline
 
 on:
   push:
@@ -17,36 +17,29 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Java
+    - name: Set up Java and Maven
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
-
-    - name: Set up Maven
-      uses: s4u/setup-maven-action@v1
-      with:
-        maven-version: '3.8.8'  # Or use the latest stable version
+        cache: 'maven'  # This sets up Maven and caches dependencies
 
     - name: Log in to ACR
       run: echo "${{ secrets.ACR_PASSWORD }}" | docker login $ACR_REGISTRY -u ${{ secrets.ACR_USERNAME }} --password-stdin
 
     - name: Build & Push Docker Images
       run: |
-        set -e  # Exit on error
+        set -e
 
-        services=("shipping" "cart" "catalog" "dispatch" "payment" "ratings" "user")  # Add more if needed
+        services=("shipping" "cart" "catalog" "dispatch" "payment" "ratings" "user")
 
         for service in "${services[@]}"; do
           echo "Building $service..."
 
-          # Build the JAR
           mvn -f E_commerce_project/$service/pom.xml clean package -DskipTests
 
-          # Build Docker image
           docker build -t $service:latest E_commerce_project/$service
 
-          # Push to ACR
           docker tag $service:latest $ACR_REGISTRY/$service:latest
           docker push $ACR_REGISTRY/$service:latest
 
