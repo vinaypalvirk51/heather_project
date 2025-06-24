@@ -5,6 +5,8 @@ on:
     branches:
       - dev
       - main
+    paths:
+      - 'terraform/**'         # Only trigger when files inside terraform/ change
 
 jobs:
   terraform:
