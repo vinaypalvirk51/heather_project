@@ -6,7 +6,7 @@ on:
    # branches: [ main, dev ]
 
 jobs:
-  call-reusable:
+  deploy:
     uses: ./.github/workflows/reusable-acr-push.yaml
     with:
       acr-name: myheatheracr13
