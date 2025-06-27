@@ -1,8 +1,9 @@
 name: Image push to ACR - CI/CD Pipeline
 
 on:
-  push:
-    branches: [ dev ]
+  workflow_dispatch:
+  #push:
+   # branches: [ dev ]
   #pull_request:
    # branches: [ main ]
 
