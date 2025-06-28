@@ -31,7 +31,7 @@ jobs:
       acr-login-server: myheatheracr13.azurecr.io
       docker-image-name: mysql
       dockerfile-path: ./E_commerce_project/mysql
-    # secrets: inherit
+    secrets: inherit
     
 
     
