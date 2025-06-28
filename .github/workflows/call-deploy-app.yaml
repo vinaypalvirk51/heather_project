@@ -21,7 +21,7 @@ jobs:
       acr-name: myheatheracr13
       acr-login-server: myheatheracr13.azurecr.io
       docker-image-name: mongo
-      dockerfile-path: ./mongo
+      dockerfile-path: ./E_commerce_project/mongo
     secrets: inherit
 
     
