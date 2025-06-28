@@ -15,3 +15,16 @@ jobs:
       dockerfile-path: ./E_commerce_project/cart
     secrets: inherit
 
+  deploy-mongo:
+    uses: ./.github/workflows/reusable-acr-push.yaml
+    with:
+      acr-name: myheatheracr13
+      acr-login-server: myheatheracr13.azurecr.io
+      docker-image-name: mongo
+      dockerfile-path: ./mongo
+    secrets: inherit
+
+    
+
+    
+
