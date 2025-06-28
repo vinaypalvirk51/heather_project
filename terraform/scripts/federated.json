@@ -1,0 +1,7 @@
+{
+  "name": "github-oidc-all-branches",
+  "issuer": "https://token.actions.githubusercontent.com",
+  "subject": "repo:vinaypalvirk51/heather_project:ref:refs/heads/*",
+  "description": "OIDC federated credential for GitHub Actions across all branches",
+  "audiences": ["api://AzureADTokenExchange"]
+}
