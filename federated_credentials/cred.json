@@ -1,6 +1,0 @@
-﻿{
-  "name": "github-oidc-cred",
-  "issuer": "https://token.actions.githubusercontent.com",
-  "subject": "repo:vinaypalvirk51/heather_project:ref:refs/heads/dev",
-  "audiences": ["api://AzureADTokenExchange"]
-}
