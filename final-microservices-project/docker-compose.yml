@@ -40,6 +40,8 @@ services:
       - "4003:4003"
     depends_on:
       - product-db
+    volumes:
+      - ./product-service/uploads:/app/uploads   # ✅ Added volume for image uploads
 
   product-db:
     image: mongo

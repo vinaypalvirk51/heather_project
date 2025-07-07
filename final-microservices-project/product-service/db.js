@@ -2,20 +2,19 @@ const mongoose = require("mongoose");
 
 mongoose.connect("mongodb://product-db:27017/products", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log("✅ Connected to Product DB");
-}).catch(err => {
-  console.error("❌ Product DB connection error:", err);
-});
+  useUnifiedTopology: true,
+})
+.then(() => console.log("✅ Connected to Product DB"))
+.catch((err) => console.error("❌ Product DB connection error:", err.message));
 
 const productSchema = new mongoose.Schema({
   sku: String,
   name: String,
   price: Number,
-  description: String,
   categories: [String],
-  instock: Number
+  instock: Number,
+  description: String,
+  image: String,
 });
 
 const Product = mongoose.model("Product", productSchema);

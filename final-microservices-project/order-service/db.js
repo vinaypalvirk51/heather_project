@@ -1,8 +1,9 @@
+// order-service/db.js
 const mongoose = require("mongoose");
 
 mongoose.connect("mongodb://order-db:27017/orders", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 }).then(() => {
   console.log("✅ Connected to Order DB");
 }).catch(err => {
@@ -10,11 +11,13 @@ mongoose.connect("mongodb://order-db:27017/orders", {
 });
 
 const orderSchema = new mongoose.Schema({
-  userId: String,
   items: [
     {
+      name: String,
+      price: Number,
+      imageUrl: String,
       productId: String,
-      quantity: Number
+      quantity: { type: Number, default: 1 }
     }
   ],
   total: Number,
@@ -22,6 +25,9 @@ const orderSchema = new mongoose.Schema({
     type: String,
     default: "pending"
   },
+  productName: String,
+  productImageUrl: String,
+  userId: String,
   createdAt: {
     type: Date,
     default: Date.now
@@ -29,5 +35,4 @@ const orderSchema = new mongoose.Schema({
 });
 
 const Order = mongoose.model("Order", orderSchema);
-
 module.exports = Order;
