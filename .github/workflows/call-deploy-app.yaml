@@ -1,9 +1,9 @@
 name: Deploy My App
 
 on:
-  #workflow_dispatch:  # Manual trigger
-  push:
-    branches: [ main, dev ]
+  workflow_dispatch:  # Manual trigger
+  #push:
+   # branches: [ main, dev ]
 
 jobs:
   # deploy:
