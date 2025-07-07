@@ -43,3 +43,6 @@ terraform/Readme.txt
 
 /E_commerce_project/
 
+node_modules/
+uploads/
+*.log
